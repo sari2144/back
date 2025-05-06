@@ -21,7 +21,6 @@ namespace UI.Controllers
             return Ok(data.GetAll());
         }
 
-        // GET api/<DoctorsController>/5
         [HttpGet("getById/{id}")]
         public async Task<IActionResult> Get(string id)
         {
