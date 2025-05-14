@@ -20,5 +20,6 @@ namespace BL.Api
         Object GetAllStartQueues();
         Object SearchAvialableQueueByConditiones(string id, string dayWeek, string doctorName, string city, int minHour, int maxHour, DateTime date , bool isDouble);
         void BackQueueToBeAvialable(BLQueue queue);
+        void DeleteAllAvialableQueuesByDateRange(DateTime d1, DateTime d2);
     }
 }

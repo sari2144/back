@@ -14,10 +14,12 @@ namespace BL.Services
     {
         IDalQueue data;
         IBLAvialableQueue aQueues;
-        public BLQueueService(IDal dalMan, IBLAvialableQueue aQueues)
+        IBLReadWriteDataFromFiles readWriteData;
+        public BLQueueService(IDal dalMan, IBLAvialableQueue aQueues , IBLReadWriteDataFromFiles readWriteData)
         {
             data = dalMan.Queues;
             this.aQueues = aQueues;
+            this.readWriteData = readWriteData; 
         }
         public void Add(BLQueue q)
         {
@@ -69,6 +71,9 @@ namespace BL.Services
                 return false;
             Add(q);
             blMan.AvialableQueues.RemoveFromAvialableQueuesByRange(q.StartHour, q.StartMinute, q.EndHour, q.EndMinute, q.Date);
+            DateTime lasdDateThatDeterminedQ = readWriteData.GetLastDateFromDetermindQ();   
+            if(DateOnly.FromDateTime(lasdDateThatDeterminedQ).CompareTo(DateOnly.FromDateTime(q.Date))  < 0)
+                readWriteData.SetLastDateFromDetermindQ(q.Date);
             return true;
 
         }

@@ -1,5 +1,6 @@
 ﻿using BL.Api;
 using BL.Services;
+using ConnectingApps.SmartInject;
 using DAL;
 using DAL.Api;
 using DAL.Models;
@@ -23,6 +24,8 @@ namespace BL
         public IBLSpeciality Specialities { get; }  
         public IBLWorkingTime WorkingTimes { get; }
         public IBLAvialableQueue AvialableQueues { get; }
+        public IBLReadWriteDataFromFiles ReadDataFromFiles { get; }
+
         public BLManager()
         {
             ServiceCollection services = new ServiceCollection();
@@ -30,13 +33,17 @@ namespace BL
             services.AddSingleton<IBL, BLManager>();
             services.AddSingleton<IBLDoctor, BLDoctorService>();
             services.AddSingleton<IBLSpeciality,BLSpecialityService>();
-            services.AddSingleton<IBLWorkingTime, BLWorkingTimeService>();
-            services.AddSingleton<IBLAvialableQueue, BLAvialableQueueService>();
+            services.AddLazySingleton<IBLWorkingTime,BLWorkingTimeService>();
+            //services.AddSingleton<IBLWorkingTime, BLWorkingTimeService>();
+            services.AddLazySingleton<IBLAvialableQueue, BLAvialableQueueService>();
             services.AddSingleton<IBLQueue, BLQueueService>();
             services.AddSingleton<IBLClinic, BLClinicService>();
             services.AddSingleton<IBLPatient, BLPatientService>();
-            
+            services.AddSingleton<IBLReadWriteDataFromFiles, BLReadWriteDataFromFilesService>();
+
             ServiceProvider serviceProvider = services.BuildServiceProvider();
+
+
             Doctors = serviceProvider.GetRequiredService<IBLDoctor>();
             Specialities = serviceProvider.GetRequiredService<IBLSpeciality>();
             WorkingTimes = serviceProvider.GetRequiredService<IBLWorkingTime>();
@@ -44,7 +51,7 @@ namespace BL
             Queues = serviceProvider.GetRequiredService<IBLQueue>();
             Clinics = serviceProvider.GetRequiredService<IBLClinic>();
             Patients = serviceProvider.GetRequiredService<IBLPatient>();
-            
+            ReadDataFromFiles = serviceProvider.GetRequiredService<IBLReadWriteDataFromFiles>();
 
 
 

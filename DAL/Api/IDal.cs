@@ -15,5 +15,6 @@ namespace DAL.Api
         public IDalSpeciality Specialities { get; }
         public IDalWorkingTime WorkingTimes { get; }
         public IDalAvialableQueue AvagingQueues { get; }
+        public IDalReadWriteDataFromFiles ReadWriteData { get; }
     }
 }

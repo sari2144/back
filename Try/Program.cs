@@ -1,5 +1,8 @@
 ﻿using BL;
 using BL.Models;
+using BL.Services;
+using DAL.Api;
+using DAL.Services;
 
 namespace Try
 {
@@ -18,16 +21,16 @@ namespace Try
             //DateTime d = DateTime.Now;
             //var a = d.DayOfWeek;
             //Console.WriteLine(a.ToString());
-
+            Console.WriteLine("שלום וברבה");
             DateTime d1 = DateTime.Now.AddDays(-3);
             DateTime d2 = DateTime.Now;
-            //Console.WriteLine(d1.AddDays(4)<d2);
+            ////Console.WriteLine(d1.AddDays(4)<d2);
             BLManager b = new BLManager();
-            // List<BLAvialableQueue> l = i.AvialableQueues.GetAll().OrderBy(a => a.Date).ThenBy(a => a.Hour).ThenBy(a => a.Minute).ToList();
-            //foreach (var item in l)
-            //{
-            //    Console.WriteLine(item.Date + " " + item.Hour + " " + item.Minute);
-            //}
+            //// List<BLAvialableQueue> l = i.AvialableQueues.GetAll().OrderBy(a => a.Date).ThenBy(a => a.Hour).ThenBy(a => a.Minute).ToList();
+            ////foreach (var item in l)
+            ////{
+            ////    Console.WriteLine(item.Date + " " + item.Hour + " " + item.Minute);
+            ////}
             b.AvialableQueues.UpdateAllAvialableQueuesByRange(d1, d2);
             ////b.AvialableQueues.Remove(new BLAvialableQueue() { Id = 32304 , Date = DateTime.Now,Hour = 10,Minute = 30,IdDoctor = "202056478" });
             ////b.AvialableQueues.RemoveFromAvialableQueuesByRange(11,0,12,0,new DateTime(2025,3,10));
@@ -64,7 +67,13 @@ namespace Try
             //var q = new { id = 12, age = 12 };
             //Console.WriteLine(q.ToString());
 
-
+            //DalReadWriteDataFromFilesService readWriteData = new();
+            //readWriteData.SetLastDateFromDetermindQ(DateTime.Now);
+            //Console.WriteLine(readWriteData.GetLastDateFromDetermindQ());
+            //readWriteData.SetLastDateThatAvialableQWasUpdated(DateTime.Now);
+            //Console.WriteLine(readWriteData.GetLastDateThatAvialableQWasUpdated());
+            //Console.WriteLine(DateOnly.FromDateTime(DateTime.Now).CompareTo(DateOnly.FromDateTime(DateTime.Now.AddDays(1))));
+            Console.WriteLine(  "dfjahsdk");
         }
     }
 }

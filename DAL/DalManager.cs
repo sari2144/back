@@ -18,8 +18,7 @@ namespace DAL
         public IDalSpeciality Specialities { get; }
         public IDalWorkingTime WorkingTimes { get; }
         public IDalAvialableQueue AvagingQueues { get; }
-
- 
+        public IDalReadWriteDataFromFiles ReadWriteData { get; }
 
         public DalManager()
         {
@@ -32,6 +31,7 @@ namespace DAL
             AvagingQueues = new DalAvialableQueueService(data);
             Queues = new DalQueueService(data);
             Clinics = new DalClinicServices(data);
+            ReadWriteData = new DalReadWriteDataFromFilesService();
         }
 
 

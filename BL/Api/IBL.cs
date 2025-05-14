@@ -14,7 +14,7 @@ namespace BL.Api
         public IBLWorkingTime WorkingTimes { get;}
         public IBLPatient Patients { get; }
         public IBLClinic Clinics { get; }
-
         public IBLAvialableQueue AvialableQueues { get;}
+        public IBLReadWriteDataFromFiles ReadDataFromFiles { get; }
     }
 }

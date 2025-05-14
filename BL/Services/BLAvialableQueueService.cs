@@ -19,14 +19,16 @@ namespace BL.Services
         IBLDoctor doctors;
         IBLClinic clinics;
         IBLPatient patients;
+        IBLReadWriteDataFromFiles readWriteData;
      
-        public BLAvialableQueueService(IDal dalMan , IBLWorkingTime workingTime, IBLDoctor doctors , IBLClinic clinics , IBLPatient patients)
+        public BLAvialableQueueService(IDal dalMan , Lazy<IBLWorkingTime> workingTime, IBLDoctor doctors , IBLClinic clinics , IBLPatient patients , IBLReadWriteDataFromFiles readWriteData)
         {
             data = dalMan.AvagingQueues;
-            this.workingTimes = workingTime;
+            this.workingTimes = workingTime.Value  ;
             this.doctors = doctors;
             this.clinics = clinics;
             this.patients = patients;
+            this.readWriteData = readWriteData;
         }
 
         public void Add(BLAvialableQueue newAQueue)
@@ -180,6 +182,8 @@ namespace BL.Services
                     }
                 }
             }
+            readWriteData.SetLastDateThatAvialableQWasUpdated(d2);
+
         }
 
         //פונק' הבודקת האם תור מסוים נמצא בטווח מסוים של שעות
@@ -198,8 +202,12 @@ namespace BL.Services
             }
             return false;
         }
-
+        // פונקציה המוחקת מטבלת התורים הפנויים את כל התורים בטווח תאריכים מסויים
         
+        public void DeleteAllAvialableQueuesByDateRange(DateTime d1 , DateTime d2)
+        {
+            GetAll().Where(aq => DateOnly.FromDateTime(aq.Date).CompareTo(DateOnly.FromDateTime(d1)) <= 0 &&  DateOnly.FromDateTime(aq.Date).CompareTo(DateOnly.FromDateTime(d2)) >= 0).ToList().ForEach(aq => Remove(aq));
+        }
         public Object SearchAvialableQueueByConditiones(string id ,  string dayWeek , string doctorName , string city , int minHour , int maxHour , DateTime date , bool isDouble)
         {
             BLPatient p = patients.GetById(id);

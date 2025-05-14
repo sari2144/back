@@ -11,6 +11,11 @@ namespace DAL.Services
     public class DalAvialableQueueService : IDalAvialableQueue
     {
         dbcontext data;
+
+        public DalAvialableQueueService()
+        {
+        }
+
         public DalAvialableQueueService(dbcontext data)
         {
             this.data = data;
